@@ -38,6 +38,7 @@ void bfs(int row, int col, vector<vector<int>> &vis, vector<vector<char>> grid)
         {
             for(int delcol = -1; delcol <= 1; delcol++)
             {
+                if(abs(delrow) == abs(delcol)){continue;}
                 int nrow = row + delrow;
                 int ncol = col + delcol;
                 if(nrow >= 0 && nrow < n && ncol >= 0 && ncol < m 
