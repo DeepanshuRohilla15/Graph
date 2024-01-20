@@ -20,7 +20,9 @@
 #include <chrono>
 
 using namespace std;
+ 
 
+ // BFS
 void bfs(int row, int col, int color, int iniCol, vector<vector<int>> &mat)
 {
     mat[row][col] = color;
@@ -69,3 +71,34 @@ vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int co
         bfs(sr, sc, color, iniCol, mat);
         return mat;
     }
+ 
+ // DFS
+void dfs(int row, int col, int iniColor, int color, vector<vector<int>>& image, vector<vector<int>> &ans)
+    {
+        ans[row][col] = color;
+        int n = image.size();
+        int m = image[0].size();
+        for(int delrow = -1; delrow <= 1; delrow++)
+        {
+            for(int delcol = -1; delcol <= 1; delcol++)
+            {
+                if(abs(delrow) == abs(delcol)){continue;}
+                int nrow = row + delrow;
+                int ncol = col + delcol;
+                if(nrow >=0 && nrow < n && ncol >=0 && ncol < m
+                  && image[nrow][ncol] == iniColor && ans[nrow][ncol] != color)
+                  {
+                      dfs(nrow, ncol, iniColor, color, image, ans);
+                  }
+            }
+        }
+    }
+
+ vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int iniColor = image[sr][sc];
+        vector<vector<int>> ans = image;
+        dfs(sr, sc, iniColor, color, image, ans);
+        return ans;
+    }
+
+
