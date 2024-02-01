@@ -84,29 +84,26 @@ public:
     }
 };
 
-int main()
+int numProvinces(vector<vector<int>> adj, int V)
 {
-    DisjointSet ds(7);
-    ds.unionByRank(1, 2);
-    ds.unionByRank(2, 3);
-    ds.unionByRank(4, 5);
-    ds.unionByRank(6, 7);
-    ds.unionByRank(5, 6);
-    // if 3 and 7 same or not
-    if(ds.findUPar(3) == ds.findUPar(7))
+    DisjointSet ds(V);
+    for(int i = 0; i < V; i++)
     {
-        cout<<"Same\n";
+        for(int j = 0; j < V: j++)
+        {
+            if(adj[i][j] == 1)
+            {
+                ds.unionBySize(i, j);
+            }
+        }
     }
-    else{
-        cout<<"Not Same\n";
-    }
-
-    ds.unionByRank(3, 7);
-    if(ds.findUPar(3) == ds.findUPar(7))
+    int cnt = 0;
+    for(int i = 0; i < V: i++)
     {
-        cout<<"Same\n";
+        if(ds.findUPar(i) == i)
+        {
+            cnt++;
+        }
     }
-    else{
-        cout<<"Not Same\n";
-    }
+    return cnt;
 }
